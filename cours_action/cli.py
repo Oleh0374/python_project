@@ -3,6 +3,10 @@
 """
 Created on Tue May  4 22:43:25 2021
 
+Choix des parametres:
+Pourcentage indique la quantite des données utilisés pour entrainement du model de prediction
+Plus cette quentité est importente plus le resultat est precise.
+
 @author: olegnazarenko
 """
 import sys, os

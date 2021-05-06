@@ -33,10 +33,12 @@ def hist_cours(datasetfile, date_start, date_end):
 
     # Visualisation historique du prix de fermeture
     plt.figure(figsize=(14, 6))
-    plt.title('Historique prix de fermeture' + datasetfile)
-    plt.plot(df['Close'], linewidth=1)
+    plt.title('Historique prix du prix :' + datasetfile)
+    plt.plot(df['Close'], linewidth=1, color='red')
+    plt.plot(df['Open'], lw=1, color='green')
     plt.xlabel('Date', fontsize=11)
-    plt.ylabel('Close Prix € (€)', fontsize=11)
+    plt.ylabel('Close Prix USD ($)', fontsize=11)
+    plt.legend(['Close', 'Open'], loc='upper right')
     plt.show()
 
     return
