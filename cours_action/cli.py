@@ -9,9 +9,9 @@ Choix des parametres:
 Pourcentage indique la quantite des données utilisés pour entrainement du model de prediction
 Plus cette quentité est importente plus le resultat est precise.
 EN:
-Choise of the parameters:
-Percent value used for prediction model traning.
-More this value is high more result is precise
+Choice of parameters:
+Percentage value used for training the prediction model.
+The higher this value, the more accurate the result.
 
 
 @author: olegnazarenko
@@ -33,9 +33,9 @@ def menu_main():
     os.system('clear')
 
     print(Fore.BLUE + "Menu :" + Style.RESET_ALL)
-    print(Fore.GREEN + "1. Show action historical data in real time" + Style.RESET_ALL)
-    print(Fore.GREEN + "2. Prediction action close price in real time" + Style.RESET_ALL)
-    print(Fore.GREEN + "3. Prediction action close price from a offline dataset (csv file must be downloaded" + Style.RESET_ALL)
+    print(Fore.GREEN + "1. Show stock market action - historical data in real time" + Style.RESET_ALL)
+    print(Fore.GREEN + "2. Prediction stock market action - close price in real time" + Style.RESET_ALL)
+    print(Fore.GREEN + "3. Prediction stock market action - close price from a offline dataset (csv file must be downloaded" + Style.RESET_ALL)
     print(Fore.GREEN + "0. Exit#" + Style.RESET_ALL)
     choice = input("Choix :")
     exec_menu(choice)
@@ -61,8 +61,8 @@ def exec_menu(choice):
 # Prediction sur periode
 #@logger.catch
 def titre_pred():
-    print(Fore.YELLOW + "Prediction for some period" + Style.RESET_ALL)
-    print(Fore.CYAN + "For make a choice of an action here some exemples ( you have to see a name from a stock market): TSLA - Tesla"+Style.RESET_ALL)
+    print(Fore.YELLOW + "Prediction of stock market action for a certain period" + Style.RESET_ALL)
+    print(Fore.CYAN + "For make a choice of an stock market action here some exemples ( you have to see this #name from a stock market): TSLA - Tesla"+Style.RESET_ALL)
     print(Fore.CYAN + "AAPL - Apple; AIR.PA - AirBus"+Style.RESET_ALL)
     titre = input(Fore.CYAN + "Select the action:" + Style.RESET_ALL)
     print("=========================")
@@ -116,7 +116,7 @@ def data_set():
     period = int(input(Fore.CYAN + "Select a number of days for prediction" + Style.RESET_ALL))
     print("==========================")
     param = float(input(
-        Fore.CYAN + "Select percent a value for model traning ( de 0.1 à 0.99 ). \n Value "
+        Fore.CYAN + "( ( de 0.1 à 0.99 ). \n Value "
                     "optimum 80% (0.8):" + Style.RESET_ALL))
 
     predict_data_file(datasetfile, period, param)
