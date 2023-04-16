@@ -5,18 +5,19 @@ Created on Tue May  4 22:43:25 2021
 
 @author: olegnazarenko
 """
-# Prediction cours de fermeture action en utilisant LSTM (Long Short Term Memory)
+# Prediction stock market action, closed price with a LSTM (Long Short Term Memory)
 
 # import bibliotheques
 
 # import math
 
-import pandas_datareader as web
+#import pandas_datareader as web
+import yfinance as yf
 import matplotlib.pyplot as plt
 import datetime
 from loguru import logger
 
-# parametrage affichage graphique
+# parametrage affichage graphique / parameters for graphic presentation
 
 plt.style.use('fivethirtyeight')
 
@@ -25,13 +26,14 @@ plt.style.use('fivethirtyeight')
 def hist_cours(datasetfile, date_start, date_end):
     datetime.datetime.today()
 
-    # Recuperation des donnees sur web
-    df = web.DataReader(datasetfile, data_source='yahoo', start=date_start, end=date_end)
+    ## Recuperation des donnees sur web / Downloading dataset from yahoo
+    # df = web.DataReader(datasetfile, data_source='yahoo', start=date_start, end=date_end)
+    df = yf.download(datasetfile, start=date_start, end=date_end)
     # Visualisation des données
     #print("Tableau des données:")
     #print(df)
 
-    # Visualisation historique du prix de fermeture
+    # Visualisation historique du prix de fermeture / Visualization a history of stock market action price
     plt.figure(figsize=(14, 6))
     plt.title('Historique prix du prix :' + datasetfile)
     plt.plot(df['Close'], linewidth=1, color='red')
