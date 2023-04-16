@@ -2,10 +2,17 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue May  4 22:43:25 2021
+Updated April 16 2023
 
+FR:
 Choix des parametres:
 Pourcentage indique la quantite des données utilisés pour entrainement du model de prediction
 Plus cette quentité est importente plus le resultat est precise.
+EN:
+Choise of the parameters:
+Percent value used for prediction model traning.
+More this value is high more result is precise
+
 
 @author: olegnazarenko
 """
@@ -26,10 +33,10 @@ def menu_main():
     os.system('clear')
 
     print(Fore.BLUE + "Menu :" + Style.RESET_ALL)
-    print(Fore.GREEN + "1. Affichage historique du cours d'un titre boursier en temps reel" + Style.RESET_ALL)
-    print(Fore.GREEN + "2. Prediction prix de cloture du tittre boursier en temps reel" + Style.RESET_ALL)
-    print(Fore.GREEN + "3. Prediction prix de cloture du tittre boursier à partir d'un dataset" + Style.RESET_ALL)
-    print(Fore.GREEN + "0. Quitter" + Style.RESET_ALL)
+    print(Fore.GREEN + "1. Show action historical data in real time" + Style.RESET_ALL)
+    print(Fore.GREEN + "2. Prediction action close price in real time" + Style.RESET_ALL)
+    print(Fore.GREEN + "3. Prediction action close price from a offline dataset (csv file must be downloaded" + Style.RESET_ALL)
+    print(Fore.GREEN + "0. Exit#" + Style.RESET_ALL)
     choice = input("Choix :")
     exec_menu(choice)
 
@@ -54,27 +61,27 @@ def exec_menu(choice):
 # Prediction sur periode
 #@logger.catch
 def titre_pred():
-    print(Fore.YELLOW + "Prediction sur un periode" + Style.RESET_ALL)
-    print(Fore.CYAN + "Pour choisir le titre voici quelques exemples: TSLA - Tesla"+Style.RESET_ALL)
+    print(Fore.YELLOW + "Prediction for some period" + Style.RESET_ALL)
+    print(Fore.CYAN + "For make a choice of an action here some exemples ( you have to see a name from a stock market): TSLA - Tesla"+Style.RESET_ALL)
     print(Fore.CYAN + "AAPL - Apple; AIR.PA - AirBus"+Style.RESET_ALL)
-    titre = input(Fore.CYAN + "Veillez choisir le titre:" + Style.RESET_ALL)
+    titre = input(Fore.CYAN + "Select the action:" + Style.RESET_ALL)
     print("=========================")
-    print(Fore.YELLOW + " Selection du volume de données pour la prediction" + Style.RESET_ALL)
-    date_start = input(Fore.BLUE+"Pour dataset veillez choisir date de debut (sous forme AAAA-MM-JJ) : "+ Style.RESET_ALL)
-    date_end = input(Fore.LIGHTGREEN_EX+"Pour dataset veillez choisir date de fin (sous forme AAAA-MM-JJ) : "+ Style.RESET_ALL)
+    print(Fore.YELLOW + " Select data volume for prediction" + Style.RESET_ALL)
+    date_start = input(Fore.BLUE+"Select start date (format AAAA-MM-JJ) : "+ Style.RESET_ALL)
+    date_end = input(Fore.LIGHTGREEN_EX+"Select end date (format AAAA-MM-JJ) : "+ Style.RESET_ALL)
     print("==========================")
-    period = int(input(Fore.CYAN + "Veillez choisir le periode de prediction (en nombre des jours)" + Style.RESET_ALL))
+    period = int(input(Fore.CYAN + "Select a period for prediction (number of days)" + Style.RESET_ALL))
     print("==========================")
     param = float(input(
-        Fore.CYAN + "Veillez choisir le pourcentage des donnees pour entrainer le model ( de 0.1 à 0.99 ). \n Valeur "
+        Fore.CYAN + "Select percent value for model traning ( de 0.1 à 0.99 ). \n Valeur "
                     "optimale 80% (0.8):" + Style.RESET_ALL))
 
     # datasetfile = pd.read_csv(file_path1)
 
     predict_data(titre, date_start, date_end, period, param)
 
-    print("4. Retour au menu principal.")
-    print("0. Quitter.")
+    print("4. Back to main menu.")
+    print("0. Exit.")
     choice = input(">>")
     exec_menu(choice)
     return
@@ -82,40 +89,40 @@ def titre_pred():
 # Prediction sur prix d'ouverture
 @logger.catch
 def cours_today():
-    print(Fore.YELLOW + "Affichage historique de fermeture (rouge)  et ouverture (vert)" + Style.RESET_ALL)
-    print("Pour choisir le tytre voici quelques exemples: TSLA - Tesla")
+    print(Fore.YELLOW + "Shows the  historic graph of close market (in red) (in green)" + Style.RESET_ALL)
+    print("For make a choice here some exemples ( you have to see name of action from a stock market): TSLA - Tesla")
     print("AAPL - Apple; AIR.PA - AirBus")
-    titre = input(Fore.CYAN + "Veillez choisir le titre:" + Style.RESET_ALL)
+    titre = input(Fore.CYAN + "Select an action:" + Style.RESET_ALL)
     date_start = input(
-        Fore.CYAN + "Veillez choisir la date de debut de periode (sous format AAAA-MM-JJ):" + Style.RESET_ALL)
+        Fore.CYAN + "Select start date (format AAAA-MM-JJ):" + Style.RESET_ALL)
     date_end = input(
-        Fore.CYAN + "Veillez choisir la date du fin de periode (sous format AAAA-MM-JJ):" + Style.RESET_ALL)
+        Fore.CYAN + "Select end date (format AAAA-MM-JJ):" + Style.RESET_ALL)
 
     hist_cours(titre, date_start, date_end)
 
-    print("4. Retour au menu principal.")
-    print("0. Quitter.")
+    print("4. Back to main menu.")
+    print("0. Exit.")
     choice = input(">>")
     exec_menu(choice)
     return
 
 
 def data_set():
-    print(Fore.YELLOW + "Prediction sur un periode à partir dataset" + Style.RESET_ALL)
+    print(Fore.YELLOW + "Prediction for a periode from offline dataset" + Style.RESET_ALL)
 
-    datasetfile = input(Fore.CYAN + "Veillez choisir le fichier CSV, copier-coller path ici :" + Style.RESET_ALL)
+    datasetfile = input(Fore.CYAN + "Select a CSV file, drug&drop path here :" + Style.RESET_ALL)
     print("=========================")
 
-    period = int(input(Fore.CYAN + "Veillez choisir le periode de prediction (en nombre des jours)" + Style.RESET_ALL))
+    period = int(input(Fore.CYAN + "Select a number of days for prediction" + Style.RESET_ALL))
     print("==========================")
     param = float(input(
-        Fore.CYAN + "Veillez choisir le pourcentage des donnees pour entrainer le model ( de 0.1 à 0.99 ). \n Valeur "
-                    "optimale 80% (0.8):" + Style.RESET_ALL))
+        Fore.CYAN + "Select percent a value for model traning ( de 0.1 à 0.99 ). \n Value "
+                    "optimum 80% (0.8):" + Style.RESET_ALL))
 
     predict_data_file(datasetfile, period, param)
 
-    print("4. Retour au menu principal.")
-    print("0. Quitter.")
+    print("4. Back to main menu.")
+    print("0. Exit.")
     choice = input(">>")
     exec_menu(choice)
     return
