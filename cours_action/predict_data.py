@@ -12,7 +12,8 @@ from colorama import Fore
 from colorama import Style
 from loguru import logger
 import math
-import pandas_datareader as web
+# import pandas_datareader as web
+import yfinance as yf
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
@@ -31,10 +32,10 @@ def predict_data(datasetfile, date_start, date_end, settest, param):
     day = datetime.datetime.today().strftime('%Y-%m-%d')
 
     # Recuperation des donnees sur web
-    df = web.DataReader(datasetfile, data_source='yahoo', start=date_start, end=date_end)
-
+    # df = web.DataReader(datasetfile, data_source='yahoo', start=date_start, end=date_end)
+	df = yf.download(datasetfile, start=date_start, end=date_end)
     # Visualisation des données
-    print("Tableau des données:")
+    print("Data table:")
     print(df)
 
     # Creation dataframe avec données de cloture
@@ -129,7 +130,8 @@ def predict_data(datasetfile, date_start, date_end, settest, param):
     # print(valid)
 
     # predictions
-    titre_quote = web.DataReader(datasetfile, data_source='yahoo', start=date_start, end=date_end)
+    # titre_quote = web.DataReader(datasetfile, data_source='yahoo', start=date_start, end=date_end)
+    titre_quote = yf.download(datasetfile, start=date_start, end=date_end)
     # nouvelle dataframe
     new_df = titre_quote.filter(['Close'])
     # Derniers 60 jours
@@ -148,12 +150,12 @@ def predict_data(datasetfile, date_start, date_end, settest, param):
     pred_price = model.predict(X_test)
     # Denormalisation data
     pred_price = scaler.inverse_transform(pred_price)
-    print(Fore.BLUE + "Prix de titre predité :  " + datasetfile + Style.RESET_ALL)
+    print(Fore.BLUE + "Stock market action prediction :  " + datasetfile + Style.RESET_ALL)
     print(pred_price)
 
     # prix actuelle
     titre_quoteToday = web.DataReader(datasetfile, data_source='yahoo', start=date_end, end=day)
-    print(Fore.GREEN+ "Prix de titre à la fermeture reelle pour la date du jour" + Style.RESET_ALL)
+    print(Fore.GREEN+ "Real price of a stock market action (close price)#" + Style.RESET_ALL)
     print(titre_quoteToday['Close'])
 
     # Creation graphique
@@ -164,12 +166,12 @@ def predict_data(datasetfile, date_start, date_end, settest, param):
 
     # Visualisation des données
     plt.figure(figsize=(13, 5))
-    plt.title('Prediction pour ' + datasetfile)
+    plt.title('Prediction for ' + datasetfile)
     plt.xlabel('Date', fontsize=11)
-    plt.ylabel('Prix de fermeture USD ($)', fontsize=11)
+    plt.ylabel('Price closed USD ($)', fontsize=11)
     plt.plot(train['Close'], linewidth=1)
     plt.plot(valid[['Close', 'Predictions']], linewidth=1)
-    plt.legend(['Entrainement', 'Valides', 'Predictions'], loc='lower right')
+    plt.legend(['Traning', 'Valid', 'Predictions'], loc='lower right')
     plt.show()
 
     return
